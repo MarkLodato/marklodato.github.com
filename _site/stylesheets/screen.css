@@ -5,3 +5,8 @@
 #content.site {
   width: 59em;
 }
+
+#header.site.logo a {
+    color: black;
+    font-size: 30pt;
+}
