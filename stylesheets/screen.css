@@ -1,12 +1,347 @@
-.site {
-  width: 60em;
+/* Layout */
+
+html, body
+{
+  margin: 0;
+  padding: 0;
 }
 
-#content.site {
-  width: 59em;
+html
+{
+  background: #222;
+  font-family: 'Georgia', 'DejaVu Serif', 'Times', 'Times New Roman', serif;
+  font-size: 110%;
+  line-height: 1.8em;
+  color: #fff;
 }
 
-#header .logo a {
-    color: black;
-    font-size: 30pt;
+body
+{
+  width: 44em;
+  max-width: 90%;
+  margin: 0 auto;
+  padding-bottom: 3em;
+}
+
+ul
+{
+  list-style-type: square;
+}
+
+div#header
+{
+  position: relative;
+  margin-bottom: 4em;
+  padding-top: 1em;
+}
+
+  ul#navigation
+  {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+    ul#navigation li
+    {
+      display: block;
+      float: left;
+      background: #111;
+    }
+
+    ul#navigation li.first
+    {
+      padding-left: 1.2em;
+    }
+
+    ul#navigation li.last
+    {
+      padding-right: 1.2em;
+    }
+
+      ul#navigation li a
+      {
+        display: block;
+        padding: 0.6em 0.6em;
+        border-bottom: none;
+        font-size: 1.65em;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #fff;
+      }
+
+      ul#navigation li a:hover,
+      ul#navigation li a:active,
+      ul#navigation li a:focus
+      {
+        background: #ebffb4;
+        color: #111;
+      }
+
+  div#lime
+  {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 202px;
+    height: 202px;
+    background: url("/images/layout/lime.png") right top no-repeat;
+  }
+
+  div#lime:hover
+  {
+    background-position: left bottom;
+  }
+        
+/* Typography */
+
+h2,
+h3,
+h4,
+blockquote,
+.about,
+div.post_date
+{
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;  
+}
+
+a
+{
+  border-bottom: 1px solid #ebffb4;
+  text-decoration: none;
+  color: #ebffb4;
+}
+
+a:hover,
+a:active,
+a:focus
+{
+  color: #111;
+  background: #ebffb4;
+}
+
+h1
+{
+  margin-bottom: 0.375em;
+  font-size: 5.5em;
+  font-weight: normal;
+}
+
+  h1 a
+  {
+    border-bottom: none;
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  h1 a:hover,
+  h1 a:focus,
+  h1 a:active
+  {
+    background: transparent;
+    color: #ebffb4;
+  }
+
+    h1 a span
+    {
+      position: relative;
+      bottom: 0.5em;
+      padding-left: 0.25em;
+      padding-right: 0.5em;
+      font-size: 0.25em;
+    }
+  
+h2
+{
+  font-size: 2em;
+  font-weight: bold;
+  color: #c6e567;
+  line-height: 1.5em;
+}
+
+h3
+{
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #c6e567;
+}
+
+h4
+{
+  text-transform: uppercase;
+}
+
+p
+{
+  letter-spacing: 0.05em;
+}
+
+blockquote,
+.about
+{
+  color: #aaa;
+}
+
+blockquote
+{
+  margin: 1.5em 2.5em;
+  padding-left: 1em;
+  border-left: 1px solid #aaa;
+}
+
+.about
+{
+  padding: 0 0.5em;
+  text-align: center;
+}
+
+blockquote
+{
+  font-style: italic;
+}
+
+blockquote a,
+.about a
+{
+  color: #fff;
+  border: none;
+}
+
+
+blockquote a:hover,
+blockquote a:focus,
+blockquote a:active,
+.about a:hover,
+.about a:focus,
+.about a:active
+{
+  background: #fff;
+  color: #222;
+}
+
+/* Image */
+
+img
+{
+  display: block;
+  margin: 0 auto;
+  border: 6px solid #333;
+}
+
+a:hover img
+{
+  border-color: #c6e567;
+}
+
+img.img_left
+{
+  float: left;
+  margin-right: 1.5em;
+  margin-bottom: 0.25em;
+}
+
+ul.images
+{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+  
+  ul.images li img
+  {
+    float: left;
+    margin-right: 1.5em;
+    margin-bottom: 1.5em;
+  }
+  
+/* Archive */
+
+ol.archive
+{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+ol.archive span.date
+{
+  float: left;
+  display: block;
+  width: 7em;
+  padding-right: 1em;
+  text-align: right;
+}
+
+/* Pagination */
+
+div.left_column,
+div.right_column,
+form.center_column
+{
+  border-bottom: 3px solid #222;
+}
+
+div.left_column,
+div.right_column
+{
+  width: 25%;
+}
+
+div.left_column
+{
+  float: left;
+}
+
+div.right_column
+{
+  float: right;
+  text-align: right;
+}
+
+form.center_column
+{
+  float: left;
+  width: 50%;
+}
+
+  form.center_column fieldset
+  {
+    padding: 0;
+    margin: 0;
+    border: none;
+    text-align: center;
+  }
+
+div.paginator
+{
+  margin: 3em 0;
+}
+
+/* Other */
+
+div.post_date
+{
+  margin: 0;
+  line-height: 0;
+  font-weight: bold;
+  color: #aaa;
+}
+
+hr
+{
+  border-top: 1px solid #010101;
+  border-bottom: 1px solid #575757;
+  border-right: none;
+  border-left: none;
+}
+
+hr.post
+{
+  margin: 3em 0 3.5em 0;
+}
+
+div.clear_both
+{
+  clear: both;
 }
