@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Projects
+title: Projects &mdash; marklodato.github.com
 ---
 
 ## Projects
