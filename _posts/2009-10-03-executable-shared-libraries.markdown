@@ -10,26 +10,24 @@ list discussions from 2003 describing a method, but it does not work on x86
 Linux.  The method below works, at least, on x86-64 Linux with gcc 4.3.3 on
 Ubuntu 9.04.
 
-Unfortunately, I could not get gcc to do this for me - I have to run the
+<del>Unfortunately, I could not get gcc to do this for me - I have to run the
 linker myself.  I tried giving `-Wl,-shared`, but gcc put the flag too late in
-the command line.  If anyone figures out a way to do this, let me know!  
+the command line.  If anyone figures out a way to do this, let me know!</del>
+**Update:** Thanks to [Daniel
+Jacobowitz](http://sourceware.org/ml/binutils/2009-10/msg00088.html), I found
+out that `-fPIC -fPIE -pie` is sufficient.  Easy!  I've updated the post bleow
+to reflect this.
 
 Here's some example code:
 
 {% highlight bash %}
 $ cat <<EOF >library.c
 #include <stdio.h>
+#include <stdlib.h>
 
 void foo(int x) {
     printf("foo(%d)\n", x);
 }
-EOF
-
-$ cat <<EOF >main.c
-#include <stdio.h>
-#include <stdlib.h>
-
-void foo(int x);
 
 int main(int argc, char **argv) {
     if (argc != 2) {
@@ -42,17 +40,30 @@ int main(int argc, char **argv) {
 EOF
 {% endhighlight %}
 
-Compile your objects with `-fPIC` and `-fPIE`:
+Compile `-fPIC -fPIE -pie` to make a position-independent executable, which
+can be loaded like a shared library.
 
-    {% highlight bash %}
-$ gcc -fPIC -fPIE -c library.c
-$ gcc -fPIC -fPIE -c main.c
+{% highlight bash %}
+$ gcc -fPIC -fPIE -pic -o library.so library.c
 {% endhighlight %}
+
+Now you can both execute and load your shared library.
+
+{% highlight bash %}
+$ ./library.so 12
+foo(12)
+
+$ python -c \
+    'import ctypes; x = ctypes.cdll.LoadLibrary("./library.so"); x.foo(13)'
+foo(13)
+{% endhighlight %}
+
+The rest is the stupid way I did it before, mainly for historical interest.
 
 Run `gcc '-###'` to find out what command it *would* have run.
 
 {% highlight bash %}
-$ gcc '-###' -fPIC -fPIE -pie -rdynamic -o library.so library.o main.o
+$ gcc '-###' -fPIC -fPIE -pie -rdynamic -o library.so library.o
 {% endhighlight %}
 
 Look for the `collect2` line - this is the linker.  Run that exact command,
@@ -74,7 +85,6 @@ $ /usr/lib/gcc/x86_64-linux-gnu/4.3.3/collect2 \
     -L/usr/lib \
     -L/lib \
     library.o \
-    main.o \
     -lgcc \
     --as-needed \
     -lgcc_s \
@@ -88,13 +98,3 @@ $ /usr/lib/gcc/x86_64-linux-gnu/4.3.3/collect2 \
     /usr/lib/crtn.o
 {% endhighlight %}
 
-Now you can both execute and load your shared library.
-
-{% highlight bash %}
-$ ./library.so 12
-foo(12)
-
-$ python -c \
-    'import ctypes; x = ctypes.cdll.LoadLibrary("./library.so"); x.foo(13)'
-foo(13)
-{% endhighlight %}
