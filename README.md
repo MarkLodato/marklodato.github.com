@@ -11,16 +11,12 @@ I copied everything except the content and images from
 and I don't have enough time to mess around with HTML/CSS to make anything
 even a tenth as good looking.
 
-Following files, directories, and their contents are Copyright Mark Lodato.
-You may not reuse anything therein without my permission:
-
-* about.html
-* images/
-
-Following directories and their contents are licenced under the [Creative
+Following files and directories are licenced under the [Creative
 Commons](http://creativecommons.org/licenses/by-nc-nd/2.5/au/):
 
+* projects.md
 * _posts/
+* images/
 
 All other files and directories are licenced under the
 [MIT](http://www.opensource.org/licenses/mit-license.php).
