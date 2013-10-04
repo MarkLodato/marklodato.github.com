@@ -3,25 +3,26 @@ layout: nil
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
- 
- <title>Mark Lodato's Blog</title>
- <link href="http://marklodato.github.com/atom.xml" rel="self"/>
- <link href="http://marklodato.github.com/"/>
+
+ <title>{{ site.custom.title }}</title>
+ <link href="{{ site.custom.url }}/atom.xml" rel="self"/>
+ <link href="{{ site.custom.url }}"/>
+ <link href="http://pubsubhubbub.appspot.com/" rel="hub"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>http://marklodato.github.com/</id>
+ <id>{{ site.custom.url }}/</id>
  <author>
-   <name>Mark Lodato</name>
-   <email>lodatom@gmail.com</email>
+   <name>{{ site.custom.author_name }}</name>
+   <email>{{ site.custom.author_email }}</email>
  </author>
- 
+
  {% for post in site.posts %}
  <entry>
    <title>{{ post.title }}</title>
-   <link href="http://marklodato.github.com{{ post.url }}"/>
+   <link href="{{ site.custom.url }}{{ post.url }}"/>
    <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>http://marklodato.github.com{{ post.id }}</id>
+   <id>{{ site.custom.url }}{{ post.id }}</id>
    <content type="html">{{ post.content | xml_escape }}</content>
  </entry>
  {% endfor %}
- 
+
 </feed>

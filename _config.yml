@@ -1,3 +1,8 @@
 ---
-pygments: true
 paginate: 5
+custom:
+  title: Mark Lodato's blog
+  url: http://marklodato.github.io
+  author_name: Mark Lodato
+  author_email: lodatom@gmail.com
+  analytics_id: UA-13167645-1

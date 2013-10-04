@@ -3,7 +3,13 @@
 
 <html>
   <head>
-    <title>{{ page.title }}</title>
+    <title>
+      {% if page.title and site.custom.title %}
+        {{ page.title }} &mdash; {{ site.custom.title }}
+      {% else %}
+        {{ page.title}}{{ site.custom.title }}
+      {% endif %}
+    </title>
 
     <link rel="stylesheet" href="/stylesheets/syntax_highlighting-native.css" type="text/css" media="all" />
     <link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="all" />
@@ -12,10 +18,11 @@
     <![endif]-->
     <link href="atom.xml" rel="alternate" title="Mark Lodato" type="application/atom+xml" />
     <!--<link href='/images/layout/favicon.ico' rel='shortcut icon' type='image/ico' />-->
+    {% if site.custom.analytics_id %}
     <script type="text/javascript">
 
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-13167645-1']);
+      _gaq.push(['_setAccount', '{{ site.custom.analytics_id }}']);
       _gaq.push(['_trackPageview']);
 
       (function() {
@@ -25,6 +32,7 @@
       })();
 
     </script>
+    {% endif %}
   </head>
 
   <body>
