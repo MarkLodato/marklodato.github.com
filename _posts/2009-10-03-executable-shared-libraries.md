@@ -11,8 +11,9 @@ Linux.  The method below works, at least, on x86-64 Linux with gcc 4.3.3 on
 Ubuntu 9.04.
 
 <del>Unfortunately, I could not get gcc to do this for me - I have to run the
-linker myself.  I tried giving `-Wl,-shared`, but gcc put the flag too late in
-the command line.  If anyone figures out a way to do this, let me know!</del>
+linker myself.  I tried giving <code>-Wl,-shared</code>, but gcc put the flag
+too late in the command line.  If anyone figures out a way to do this, let me
+know!</del>
 **Update:** Thanks to [Daniel
 Jacobowitz](http://sourceware.org/ml/binutils/2009-10/msg00088.html), I found
 out that `-fPIC -fPIE -pie` is sufficient.  Easy!  I've updated the post bleow
@@ -20,8 +21,8 @@ to reflect this.
 
 Here's some example code:
 
-{% highlight bash %}
-$ cat <<EOF >library.c
+{% highlight c %}
+// library.c
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -37,7 +38,6 @@ int main(int argc, char **argv) {
     foo(atoi(argv[1]));
     return 0;
 }
-EOF
 {% endhighlight %}
 
 Compile `-fPIC -fPIE -pie` to make a position-independent executable, which
@@ -58,7 +58,10 @@ $ python -c \
 foo(13)
 {% endhighlight %}
 
-The rest is the stupid way I did it before, mainly for historical interest.
+### Manual Method ###
+
+The rest of this post describes the stupid way I did it before, mainly for
+historical interest.
 
 Run `gcc '-###'` to find out what command it *would* have run.
 
