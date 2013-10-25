@@ -10,10 +10,11 @@ list discussions from 2003 describing a method, but it does not work on x86
 Linux.  The method below works, at least, on x86-64 Linux with gcc 4.3.3 on
 Ubuntu 9.04.
 
-<del>Unfortunately, I could not get gcc to do this for me - I have to run the
-linker myself.  I tried giving <code>-Wl,-shared</code>, but gcc put the flag
+~~Unfortunately, I could not get gcc to do this for me - I have to run the
+linker myself.  I tried giving `-Wl,-shared`, but gcc put the flag
 too late in the command line.  If anyone figures out a way to do this, let me
-know!</del>
+know!~~
+
 **Update:** Thanks to [Daniel
 Jacobowitz](http://sourceware.org/ml/binutils/2009-10/msg00088.html), I found
 out that `-fPIC -fPIE -pie` is sufficient.  Easy!  I've updated the post bleow
