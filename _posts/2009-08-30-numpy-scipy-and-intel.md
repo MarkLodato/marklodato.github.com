@@ -18,14 +18,14 @@ very easy; I installed the C++ compiler and then the Fortran one.
 
 Once they are installed, source the iccvars.sh script.
 
-{% highlight bash %}
+```bash
 source /opt/intel/Compiler/11.1/046/bin/iccvars.sh intel64
-{% endhighlight %}
+```
 
 Also, you may want to do the following so that you do not need to have the
 Intel library directories in your `$LD_LIBRARY_PATH`.
 
-{% highlight bash %}
+```bash
 cat > /etc/ld.so.conf.d/intel.conf <<EOF
 /opt/intel/Compiler/11.1/046/lib/intel64
 /opt/intel/Compiler/11.1/046/ipp/em64t/sharedlib
@@ -33,7 +33,7 @@ cat > /etc/ld.so.conf.d/intel.conf <<EOF
 /opt/intel/Compiler/11.1/046/tbb/em64t/cc4.1.0_libc2.4_kernel2.6.16.21/lib
 EOF
 sudo /sbin/ldconfig
-{% endhighlight %}
+```
 
 #### Note About -xHost
 
@@ -51,17 +51,17 @@ The AMD and UMFPACK libraries (part of
 are needed for SciPy, so we'll build them first.  They are static libraries,
 so I chose to build them in /opt.
 
-{% highlight bash %}
+```bash
 cd /opt
 tar zxvf SuiteSparse-3.4.0.tar.gz
 cd SuiteSparse
-{% endhighlight %}
+```
 
 First we need to patch the Makefile to build with the Intel compiler.  If you
 want to compile the whole suite, you also need to set up BLAS and LAPACK to
 use MKL.  But we don't need the whole suite for SciPy.
 
-{% highlight diff %}
+```diff
 patch -p0 <<EOF
 diff -ur SuiteSparse.orig/UFconfig/UFconfig.mk SuiteSparse/UFconfig/UFconfig.mk
 --- SuiteSparse.orig/UFconfig/UFconfig.mk	2009-05-20 14:06:04.000000000 -0400
@@ -101,24 +101,24 @@ diff -ur SuiteSparse.orig/UFconfig/UFconfig.mk SuiteSparse/UFconfig/UFconfig.mk
  # alternatives:
  # CFLAGS = -g -fexceptions \
 EOF
-{% endhighlight %}
+```
 
 Compile both libraries.  No install needed after this.
 
-{% highlight bash %}
+```bash
 make -C AMD
 make -C UMFPACK
-{% endhighlight %}
+```
 
 
 ### Numpy 1.3.0
 
 Now on to NumPy.
 
-{% highlight bash %}
+```bash
 tar zxvf numpy-1.3.0.tar.gz
 cd numpy-1.3.0
-{% endhighlight %}
+```
 
 Next, set up the site.cfg file for Intel MKL, AMD, and UMFPACK.  (Only MKL is
 needed for NumPy, but if we set this up now, it will work for SciPy later.)
@@ -130,7 +130,7 @@ be automatic (from `mkl_core`), but for some reason it kept failing with
 `undefined symbol: mkl_dft_commit_descriptor_s_c2c_md_omp`.  Adding `mkl_mc`
 fixed it.
 
-{% highlight bash %}
+```bash
 cat > site.cfg <<EOF
 [DEFAULT]
 include_dirs = /opt/SuiteSparse/UFconfig
@@ -151,11 +151,11 @@ library_dirs = /opt/intel/Compiler/11.1/046/mkl/lib/em64t
 lapack_libs = mkl_lapack
 mkl_libs = mkl_intel_lp64, mkl_intel_thread, mkl_core, mkl_mc
 EOF
-{% endhighlight %}
+```
 
 Now, turn on optimization, `-fPIC`, and OpenMP support for `icc`.
 
-{% highlight diff %}
+```diff
 patch -p0 <<EOF
 --- numpy/distutils/intelccompiler.py.old       2009-03-29 07:24:21.000000000 -0400
 +++ numpy/distutils/intelccompiler.py   2009-08-05 23:58:30.000000000 -0400
@@ -169,11 +169,11 @@ patch -p0 <<EOF
      def __init__ (self, verbose=0, dry_run=0, force=0):
          UnixCCompiler.__init__ (self, verbose,dry_run, force)
 EOF
-{% endhighlight %}
+```
 
 Set the appropriate flags for `ifort`, skipping Numpy's broken autodetection.
 
-{% highlight diff %}
+```diff
 patch -p0 <<EOF
 --- numpy/distutils/fcompiler/intel.py.bak      2009-03-29 07:24:21.000000000 -0400
 +++ numpy/distutils/fcompiler/intel.py  2009-08-06 23:08:59.000000000 -0400
@@ -194,50 +194,50 @@ patch -p0 <<EOF
          opt = []
          if cpu.has_fdiv_bug():
 EOF
-{% endhighlight %}
+```
 
 Build using icc.  You have to add the `build_src` to fix a bug in the Numpy
 1.3.0 distribution.
 
-{% highlight bash %}
+```bash
 python setup.py build_src config --compiler=intel build_clib \
     --compiler=intel build_ext --compiler=intel
-{% endhighlight %}
+```
 
 If you want to install and test without installing to the system,
 
-{% highlight bash %}
+```bash
 python setup.py install --prefix=$PWD/d
 PYTHONPATH=$PWD/d/lib/python-2.6/site-packages \
     (cd $HOME && python -c 'import scipy; scipy.test()')
-{% endhighlight %}
+```
 
 Install as root.
 
-{% highlight bash %}
+```bash
 sudo python setup.py install
 sudo cp site.cfg /usr/local/lib/python2.6/dist-packages/numpy
-{% endhighlight %}
+```
 
 Test (must do this outside the numpy source directory).
 
-{% highlight bash %}
+```bash
 (cd $HOME && python -c 'import numpy; numpy.test()')
-{% endhighlight %}
+```
 
 
 ### SciPy 0.7.1
 
 Now, on to SciPy.
 
-{% highlight bash %}
+```bash
 tar zxvf scipy-0.7.1.tar.gz
 cd scipy-0.7.1
-{% endhighlight %}
+```
 
 Fix compilation with `icc`.
 
-{% highlight diff %}
+```diff
 patch -p0 <<EOF
 --- scipy/special/cephes/const.c.bak    2009-08-07 01:56:43.000000000 -0400
 +++ scipy/special/cephes/const.c        2009-08-07 01:57:08.000000000 -0400
@@ -257,21 +257,21 @@ patch -p0 <<EOF
  double NAN = 0.0;
  #endif
 EOF
-{% endhighlight %}
+```
 
 Build.  Note that you have to set `fcompiler=intelem` for Intel 64.
 
-{% highlight bash %}
+```bash
 python setup.py config --compiler=intel --fcompiler=intelem build_clib \
     --compiler=intel --fcompiler=intelem build_ext --compiler=intel \
     --fcompiler=intelem -I/opt/SuiteSparse/UFconfig
-{% endhighlight %}
+```
 
 The SWIG code generates C++, but distutils doesn't use the C++ compiler to
 link, so we have to do this ourselves.  There may have been a way to fix
 some setup.py or something, but it's easier to just do this by hand.
 
-{% highlight bash %}
+```bash
 for x in csr csc coo bsr dia; do
     icpc -xHost -O3 -fPIC -shared \
         build/temp.linux-x86_64-2.6/scipy/sparse/sparsetools/${x}_wrap.o \
@@ -280,24 +280,24 @@ done
 icpc -xHost -O3 -fPIC -openmp -shared \
     build/temp.linux-x86_64-2.6/scipy/interpolate/src/_interpolate.o \
     -o build/lib.linux-x86_64-2.6/scipy/interpolate/_interpolate.so
-{% endhighlight %}
+```
 
 As with numpy, you may want to install to `$PWD/d` and test first.
 
-{% highlight bash %}
+```bash
 python setup.py install --prefix=$PWD/d
 PYTHONPATH=$PWD/d/lib/python-2.6/site-packages \
     (cd $HOME && python -c 'import scipy; scipy.test()')
-{% endhighlight %}
+```
 
 Install as root.
 
-{% highlight bash %}
+```bash
 sudo python setup.py install
-{% endhighlight %}
+```
 
 Test (again, outside source directory.)
 
-{% highlight bash %}
+```bash
 (cd $HOME && python -c 'import scipy; scipy.test()')
-{% endhighlight %}
+```

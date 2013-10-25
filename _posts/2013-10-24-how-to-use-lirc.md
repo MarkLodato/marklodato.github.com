@@ -71,7 +71,7 @@ this, make sure your IR receiver is plugged in and look through
 `/proc/bus/input/devices` to find the name of your device.  Here's the output
 on my computer:
 
-{% highlight bash %}
+```bash
 $ grep '^N:' /proc/bus/input/devices
 N: Name="Power Button"
 N: Name="Power Button"
@@ -80,7 +80,7 @@ N: Name="Microsoft Comfort Curve Keyboard 2000"
 N: Name="Logitech Unifying Device. Wireless PID:101b"
 N: Name="Media Center Ed. eHome Infrared Remote Transceiver (1934:5168)"
 N: Name="MCE IR Keyboard/Mouse (mceusb)"
-{% endhighlight %}
+```
 
 Find the one that sounds like "Media Center ... Remote Transceiver."  Then,
 create the file `/usr/share/X11/xorg.conf.d/10-mce-keyboard-disable.conf` with
@@ -88,7 +88,7 @@ the following contents, replacing the value of `MatchProduct` with whatever
 name you found above.  (In the old days, we would have added this to
 `/etc/X11/xorg.conf`, but now evidently we create these xorg.conf.d files.)
 
-{% highlight bash %}
+```bash
 # Disable the MCE remote from acting like a keyboard.  (We use lirc instead.)
 Section "InputClass"
     Identifier   "MCE USB Keyboard mimic blacklist"
@@ -96,16 +96,16 @@ Section "InputClass"
     MatchProduct "Media Center Ed. eHome Infrared Remote Transceiver (1934:5168)"
     Option       "Ignore" "on"
 EndSection
-{% endhighlight %}
+```
 
 ### Setting up LIRC ###
 
 [LIRC](http://www.lirc.orc) is the program that interprets IR signals.  To
 install it, run:
 
-{% highlight bash %}
+```bash
 $ sudo apt-get install lirc lirc-x
-{% endhighlight %}
+```
 
 LIRC works in two steps: the `lircd` program that translates remote signals to
 generic "buttons," and then client programs---notably `irexec`---translate
@@ -131,17 +131,17 @@ Make sure that `lircd` is not already running, and then use the `irrecord`
 program to create what I am calling a remote definition file.  Obviously,
 replace `WHATEVER_YOU_WANT` with, well, whatever you want to call your remote.
 
-{% highlight bash %}
+```bash
 $ sudo service lirc stop
 $ sudo irrecord --device=/dev/lirc0 /etc/lirc/lircd.WHATEVER_YOU_WANT.conf
-{% endhighlight %}
+```
 
 Follow the on-screen instructions, and when it when it asks you to "Please
 enter the name for the next button," open up a new terminal window and run
 
-{% highlight bash %}
+```bash
 $ irrecord --list | less
-{% endhighlight %}
+```
 
 to find an appropriate name for the button you want to learn.  I recommend
 only programming four or five buttons for now, and then moving on to the next
@@ -161,27 +161,27 @@ places:
 First, in `/etc/lirc/lircd.conf`, `include` your remote definition file.  This
 will be the only command in the file.
 
-{% highlight bash %}
+```bash
 include "/etc/lirc/lircd.WHATEVER_YOU_WANT.conf"
-{% endhighlight %}
+```
 
 Second, in `/etc/lirc/hardware.conf`, set `REMOTE_LIRCD_CONF` to the remote
 definition file.  (I don't think this does anything, but it doesn't hurt.)
 
-{% highlight bash %}
+```bash
 REMOTE_LIRCD_CONF="/etc/lirc/lircd.WHATEVER_YOU_WANT.conf"
-{% endhighlight %}
+```
 
 Now, start `lircd` and test it with `irw`.  Press a few of the buttons you
 have trained in the previous section and make sure they show up in `irw`.  For
 example:
 
-{% highlight bash %}
+```bash
 $ sudo service lirc start
 $ irw
 000000037ff07bed 00 KEY_CHANNELUP mce_custom
 000000037ff07bec 00 KEY_CHANNELDOWN mce_custom
-{% endhighlight %}
+```
 
 If you get one line per press (plus repeated lines if you hold down the
 button), it works!  Feel free to go back to the previous section and configure
@@ -205,7 +205,7 @@ Create one of the two files listed above.  The
 [documentation](http://www.lirc.org/html/configure.html#lircrc_format) is
 pretty good, but here is my config file for reference:
 
-{% highlight bash %}
+```
 begin
     button = KEY_VOLUMEUP
     prog = irexec
@@ -249,7 +249,7 @@ begin
     prog = irexec
     config = /usr/bin/xset dpms force off  # blank monitor
 end
-{% endhighlight %}
+```
 
 The file is pretty self-explanatory. Each `button` is something I defined in
 my remote definition file.  The `pactl` program works with PulseAudio, which

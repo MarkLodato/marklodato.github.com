@@ -22,7 +22,7 @@ to reflect this.
 
 Here's some example code:
 
-{% highlight c %}
+```c
 // library.c
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,25 +39,25 @@ int main(int argc, char **argv) {
     foo(atoi(argv[1]));
     return 0;
 }
-{% endhighlight %}
+```
 
 Compile `-fPIC -fPIE -pie` to make a position-independent executable, which
 can be loaded like a shared library.
 
-{% highlight bash %}
+```bash
 $ gcc -fPIC -fPIE -pic -o library.so library.c
-{% endhighlight %}
+```
 
 Now you can both execute and load your shared library.
 
-{% highlight bash %}
+```bash
 $ ./library.so 12
 foo(12)
 
 $ python -c \
     'import ctypes; x = ctypes.cdll.LoadLibrary("./library.so"); x.foo(13)'
 foo(13)
-{% endhighlight %}
+```
 
 ### Manual Method ###
 
@@ -66,14 +66,14 @@ historical interest.
 
 Run `gcc '-###'` to find out what command it *would* have run.
 
-{% highlight bash %}
+```bash
 $ gcc '-###' -fPIC -fPIE -pie -rdynamic -o library.so library.o
-{% endhighlight %}
+```
 
 Look for the `collect2` line - this is the linker.  Run that exact command,
 but insert `-shared` before the `-pie`.  On my system, I ran this:
 
-{% highlight bash %}
+```bash
 $ /usr/lib/gcc/x86_64-linux-gnu/4.3.3/collect2 \
     --eh-frame-hdr \
     -m elf_x86_64 \
@@ -100,5 +100,5 @@ $ /usr/lib/gcc/x86_64-linux-gnu/4.3.3/collect2 \
     --no-as-needed \
     /usr/lib/gcc/x86_64-linux-gnu/4.3.3/crtendS.o \
     /usr/lib/crtn.o
-{% endhighlight %}
+```
 
