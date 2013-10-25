@@ -36,7 +36,7 @@ First, you need an IR receiver.  The safest bet is to buy a "USB Media Center
 IR receiver," aka an "MCE receiver." I got the following one for $14,
 including shipping:
 
-![My IR Receiver]({{ site.url }}/images/2013-10-06-ir-receiver.jpg)
+![My IR Receiver]({{ site.url }}/images/2013-10-24-ir-receiver.jpg)
 
 Note that [IrDA](http://en.wikipedia.org/wiki/Infrared_Data_Association) ports
 found in older laptops won't work for this purpose.
