@@ -1,5 +1,9 @@
 ---
 paginate: 5
+markdown: redcarpet
+redcarpet:
+  extensions: [fenced_code_blocks, strikethrough, superscript]
+
 custom:
   title: Mark Lodato's blog
   url: http://marklodato.github.io
