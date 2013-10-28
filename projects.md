@@ -35,7 +35,7 @@ much more likely to work on something if I know that someone else will use it.
   created with [GitHub Pages](http://pages.github.com).
 
 * [mediawiki-aafigure](http://github.com/MarkLodato/mediawiki-aafigure)
-  — MediaWiki extension to allow you to embed [aafigure] diagrams in Wiki
+  — MediaWiki extension to allow you to embed [aafigure][] diagrams in Wiki
   pages.  This is nice because the diagram's source is easily
   understandable and versioned right with the page itself, and the output
   isn't bad looking.
