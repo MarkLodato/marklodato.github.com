@@ -10,3 +10,6 @@ custom:
   author_name: Mark Lodato
   author_email: lodatom@gmail.com
   analytics_id: UA-13167645-1
+
+gems:
+  - jekyll-sitemap
