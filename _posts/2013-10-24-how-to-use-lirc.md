@@ -112,6 +112,7 @@ generic "buttons," and then client programs---notably `irexec`---translate
 buttons to actions.
 
 So, three are things you need to do:
+
 1. Create a remote definition file, unless one already exists.
 2. Tell `lircd` to use the proper definition file.
 3. Configure `irexec`.
