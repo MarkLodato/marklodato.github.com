@@ -298,3 +298,25 @@ blessing in disguise, since it made me realize that I could ditch
 I also found that `ir-keytable` was less reliable than LIRC.  I have no hard
 evidence of this and I am not inclined to set it up again, but that was my
 impression.
+
+### Update: Ubuntu 17.04 breaks lirc ###
+
+My setup stopped working after upgrading to Ubuntu 17.04. It appears this is
+a very common problem. When I ran `irw` it showed nothing, and when I ran
+`mode2` I got:
+
+```bash
+$ mode2 -d /dev/lirc0
+Using driver devinput on device /dev/lirc0
+Trying device: /dev/lirc0
+Using device: /dev/lirc0
+Running as regular user mark
+Partial read 16 bytes on /dev/lirc0
+```
+
+The solution, for me, was to set the following option in
+`/etc/lirc/lirc_options.conf`:
+
+```conf
+driver = default  # was devinput
+```
