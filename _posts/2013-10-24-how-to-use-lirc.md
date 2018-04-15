@@ -314,9 +314,19 @@ Running as regular user mark
 Partial read 16 bytes on /dev/lirc0
 ```
 
-The solution, for me, was to set the following option in
+This first step is to change the `driver` to `default` in
 `/etc/lirc/lirc_options.conf`:
 
 ```conf
 driver = default  # was devinput
+```
+
+At this point, it *seemed* like it was working, but in actuality there was
+a root `irexec` running in addition to my session `irexec`. And this root
+`irexec` would crash the machine when I pressed fast forward! Turning it off
+fixed the problem.
+
+```bash
+$ sudo systemctl stop irexec.service
+$ sudo systemctl disable irexec.service
 ```
