@@ -26,6 +26,10 @@ much more likely to work on something if I know that someone else will use it.
   `less`), and more.  Really, this is a full output-only VT100-compatible
   terminal emulator.
 
+* [Enigma Simulator](http://marklodato.github.io/enigma/)
+  ([source](http://github.com/MarkLodato/enigma))
+  — A visual simulator for the WWII-era Enigma cipher machine.
+
 * [js-boxdrawing](http://github.com/MarkLodato/js-boxdrawing)
   ([demo](http://marklodato.github.io/js-boxdrawing))
   — A JavaScript library to allow the user to make diagrams with the [Unicode
