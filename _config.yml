@@ -11,5 +11,6 @@ custom:
   author_email: lodatom@gmail.com
   analytics_id: UA-13167645-1
 
-gems:
+plugins:
+  - jekyll-paginate
   - jekyll-sitemap
