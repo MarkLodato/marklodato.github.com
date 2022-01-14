@@ -20,7 +20,7 @@ XTerm*boldFont:         -*-fixed-medium-r-*-*-13-*-*-*-*-60-iso10646-1
 On Ubuntu, all bitmapped fonts are disabled by default in fontconfig, so it is
 not possible to use this font in, say, gnome-terminal or xfce4-terminal.  To
 enable this font, you must do the following, courtesy of [cpitchford on
-Ubuntu Forums](http://ubuntuforums.org/showthread.php?t=1270870):
+Ubuntu Forums](https://ubuntuforums.org/showthread.php?t=1270870):
 
 ```bash
 $ sudo su

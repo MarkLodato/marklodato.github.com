@@ -74,4 +74,4 @@ Summary:
 
 [1]: https://help.github.com/articles/about-two-factor-authentication
 [2]: https://github.com/settings/applications
-[3]: http://stackoverflow.com/a/14528360/303425
+[3]: https://stackoverflow.com/a/14528360/303425

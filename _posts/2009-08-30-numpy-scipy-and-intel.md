@@ -3,9 +3,9 @@ layout: post
 title: NumPy, SciPy, and the Intel Compiler Suite
 ---
 
-I spent a *lot* of time trying to get [NumPy](http://numpy.scipy.org) and
-[SciPy](http://www.scipy.org) to work with the [Intel Compiler
-Suite](http://software.intel.com/en-us/intel-compilers/), but it finally
+I spent a *lot* of time trying to get [NumPy](https://numpy.scipy.org) and
+[SciPy](https://www.scipy.org) to work with the [Intel Compiler
+Suite](https://software.intel.com/en-us/intel-compilers/), but it finally
 works.  Here is how I did it on Ubuntu 9.04/AMD64 on an Intel Core 2 Duo using
 the versions specified.  It appears that every combination of versions requires
 a different process, so hopefully this works for you!
@@ -47,7 +47,7 @@ to set this optimization flag to something more appropriate.
 ### AMD / UMFPACK, part of SuiteSparse 3.4.0
 
 The AMD and UMFPACK libraries (part of
-[SuiteSparse](http://www.cise.ufl.edu/research/sparse/SuiteSparse/))
+[SuiteSparse](https://www.cise.ufl.edu/research/sparse/SuiteSparse/))
 are needed for SciPy, so we'll build them first.  They are static libraries,
 so I chose to build them in /opt.
 

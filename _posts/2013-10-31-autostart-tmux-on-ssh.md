@@ -38,5 +38,5 @@ Explanation:
     `'tmux attach || tmux'` will do.
 
 [Secure Shell]: https://chrome.google.com/webstore/detail/secure-shell/pnhechapfaindjhompbnflcldabbghjo
-[tmux]: http://tmux.sourceforge.net
+[tmux]: https://tmux.sourceforge.net
 [screen]: https://www.gnu.org/software/screen/

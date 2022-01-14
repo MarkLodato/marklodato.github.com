@@ -4,7 +4,7 @@ title: Executable Shared Libraries
 ---
 
 I figured out a way to create a shared library that is also executable.  One
-possible use for this would be to make [Cython](http://cython.org) modules
+possible use for this would be to make [Cython](https://cython.org) modules
 that can be run by themselves or imported from Python.  I found some mailing
 list discussions from 2003 describing a method, but it does not work on x86
 Linux.  The method below works, at least, on x86-64 Linux with gcc 4.3.3 on
@@ -16,7 +16,7 @@ too late in the command line.  If anyone figures out a way to do this, let me
 know!~~
 
 **Update:** Thanks to [Daniel
-Jacobowitz](http://sourceware.org/ml/binutils/2009-10/msg00088.html), I found
+Jacobowitz](https://sourceware.org/ml/binutils/2009-10/msg00088.html), I found
 out that `-fPIC -fPIE -pie` is sufficient.  Easy!  I've updated the post bleow
 to reflect this.
 

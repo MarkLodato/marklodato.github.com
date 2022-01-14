@@ -3,7 +3,7 @@ layout: post
 title: Controlling Linux with a Remote Control
 ---
 
-I listen to [Pandora](http://pandora.com) all the time at home, and I often
+I listen to [Pandora](https://pandora.com) all the time at home, and I often
 want to control it without using the keyboard or mouse.  So, a few years ago I
 bought a USB infrared receiver for $14.  Of course, since I use Linux, the
 hidden cost was hours and hours of time figuring out how to set it up.  I
@@ -38,7 +38,7 @@ including shipping:
 
 ![My IR Receiver]({{ site.url }}/images/2013-10-24-ir-receiver.jpg)
 
-Note that [IrDA](http://en.wikipedia.org/wiki/Infrared_Data_Association) ports
+Note that [IrDA](https://en.wikipedia.org/wiki/Infrared_Data_Association) ports
 found in older laptops won't work for this purpose.
 
 #### Choosing a remote ####
@@ -100,7 +100,7 @@ EndSection
 
 ### Setting up LIRC ###
 
-[LIRC](http://www.lirc.orc) is the program that interprets IR signals.  To
+[LIRC](https://www.lirc.orc) is the program that interprets IR signals.  To
 install it, run:
 
 ```bash
@@ -203,7 +203,7 @@ B. Create `~/.lircrc` and have `irexec` runs as your user.  If you do this,
    `irexec` every time `lircd` restarts.
 
 Create one of the two files listed above.  The
-[documentation](http://www.lirc.org/html/configure.html#lircrc_format) is
+[documentation](https://www.lirc.org/html/configure.html#lircrc_format) is
 pretty good, but here is my config file for reference:
 
 ```
@@ -264,7 +264,7 @@ Otherwise, nothing will happen when you press a button.
 
 ### Aside: My Pithos control script ###
 
-I always use [Pithos](http://kevinmehall.net/p/pithos/) to play Pandora.  Not
+I always use [Pithos](https://kevinmehall.net/p/pithos/) to play Pandora.  Not
 only is it *way* lighter than the bloated web-based one, it is also
 controllable via D-Bus.  Sending D-Bus commands manually is a bit ugly, so I
 made a little wrapped called

@@ -36,4 +36,4 @@ write EXIF data for AVI files, and thus cannot adjust the timestamps in the
 first command.  I did this with a simple copy and paste from the corresponding
 .thm files.
 
-[exiftool]: http://www.sno.phy.queensu.ca/~phil/exiftool/
+[exiftool]: https://www.sno.phy.queensu.ca/~phil/exiftool/
